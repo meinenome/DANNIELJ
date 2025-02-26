@@ -11,10 +11,16 @@
     />
   </head>
   <body>
-    <header>
-      <nav>
+    <header class="header">
+      <nav class="nav">
+        <!-- Logo -->
         <div class="logo">Danniel Junior</div>
-        <div class="menu">
+
+        <!-- Hamburger Menu Button (Only Visible on Mobile) -->
+        <button id="menu-btn" class="hamburger-menu">&#9776;</button>
+
+        <!-- Navigation Links -->
+        <div id="menu" class="menu">
           <a href="#hero" class="nav-link">Home</a>
           <a href="#about" class="nav-link">About</a>
           <a href="#projects" class="nav-link">Projects</a>
@@ -22,6 +28,95 @@
         </div>
       </nav>
     </header>
+
+    <!-- JavaScript to Toggle Menu -->
+    <script>
+      const menuBtn = document.getElementById("menu-btn");
+      const menu = document.getElementById("menu");
+
+      menuBtn.addEventListener("click", () => {
+        menu.classList.toggle("active");
+      });
+    </script>
+
+    <!-- CSS -->
+    <style>
+      /* Header Styling */
+      .header {
+        background: #1a1a1a;
+        padding: 15px 20px;
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 100;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      }
+
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: auto;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        color: #4f9cf9;
+        font-weight: bold;
+      }
+
+      /* Default Menu (Visible on Desktop) */
+      .menu {
+        display: flex;
+        gap: 20px;
+      }
+
+      .nav-link {
+        color: white;
+        text-decoration: none;
+        font-size: 1.1rem;
+        padding: 5px 10px;
+      }
+
+      .nav-link:hover {
+        color: #ffc107;
+      }
+
+      /* Hamburger Menu (Hidden on Desktop) */
+      .hamburger-menu {
+        font-size: 2rem;
+        color: white;
+        background: none;
+        border: none;
+        cursor: pointer;
+        display: none;
+      }
+
+      /* Mobile Styles */
+      @media (max-width: 768px) {
+        .menu {
+          display: none;
+          flex-direction: column;
+          position: absolute;
+          top: 60px;
+          left: 0;
+          width: 100%;
+          background: #1a1a1a;
+          padding: 10px 0;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+          text-align: center;
+        }
+
+        .menu.active {
+          display: flex;
+        }
+
+        .hamburger-menu {
+          display: block;
+        }
+      }
+    </style>
 
     <section id="hero" class="hero">
       <div class="hero-content">
