@@ -1,237 +1,529 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Danniel Junior Profile</title>
-    <link rel="stylesheet" href="style.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <header class="header">
-      <nav class="nav">
-        <!-- Logo -->
-        <div class="logo">Danniel Junior</div>
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Danniel Junior — Software Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#050812;--bg2:#080d1a;--surface:#0c1021;--surface2:#111827;
+      --border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.1);
+      --blue:#4f9cf9;--blue2:#82b4ff;--purple:#a78bfa;
+      --text:#f0f4ff;--dim:#4a5878;--dim2:#7a8db0;--gold:#f5c842;
+    }
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:16px;line-height:1.7;overflow-x:hidden}
+    nav{position:fixed;top:0;left:0;right:0;z-index:300;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:64px;background:rgba(5,8,18,0.75);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);transition:background .3s}
+    .nav-logo{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:800;color:var(--text)}
+    .nav-logo span{color:var(--blue)}
+    .nav-links{display:flex;gap:4px;align-items:center}
+    .nav-links a{color:var(--dim2);text-decoration:none;font-size:.82rem;font-weight:500;padding:7px 16px;border-radius:100px;transition:color .2s,background .2s}
+    .nav-links a:hover{color:var(--text);background:rgba(255,255,255,.06)}
+    .nav-cta{background:var(--blue)!important;color:#fff!important;font-weight:600!important}
+    .nav-cta:hover{opacity:.88!important}
+    .hamburger{display:none;background:none;border:none;color:var(--text);font-size:1.4rem;cursor:pointer}
+    .hero{min-height:100vh;display:flex;align-items:center;padding:120px 48px 80px;position:relative;overflow:hidden}
+    .hero-grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(ellipse 100% 80% at 50% 0%,black 20%,transparent 90%)}
+    .hero-glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 65% 55% at 70% 35%,rgba(79,156,249,.1) 0%,transparent 60%),radial-gradient(ellipse 45% 45% at 15% 80%,rgba(167,139,250,.07) 0%,transparent 55%)}
+    .orb{position:absolute;border-radius:50%;pointer-events:none}
+    .orb1{width:500px;height:500px;background:radial-gradient(circle,rgba(79,156,249,.09) 0%,transparent 70%);top:5%;right:0%;animation:floatOrb 10s ease-in-out infinite}
+    .orb2{width:350px;height:350px;background:radial-gradient(circle,rgba(167,139,250,.07) 0%,transparent 70%);bottom:15%;left:5%;animation:floatOrb 13s ease-in-out infinite reverse}
+    @keyframes floatOrb{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-30px) scale(1.06)}}
+    .hero-inner{position:relative;z-index:2;max-width:860px}
+    .hero-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(79,156,249,.1);border:1px solid rgba(79,156,249,.2);border-radius:100px;padding:8px 20px;font-size:.72rem;font-weight:600;color:var(--blue2);letter-spacing:.08em;text-transform:uppercase;margin-bottom:36px}
+    .badge-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 8px #4ade80;animation:glow 2.5s ease-in-out infinite}
+    @keyframes glow{0%,100%{box-shadow:0 0 8px #4ade80}50%{box-shadow:0 0 2px #4ade80;opacity:.5}}
+    h1{font-family:'Syne',sans-serif;font-size:clamp(3.2rem,7.5vw,6.5rem);font-weight:800;line-height:.97;letter-spacing:-3.5px;margin-bottom:32px}
+    h1 em{font-style:normal;background:linear-gradient(105deg,var(--blue) 0%,var(--purple) 50%,var(--blue2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hero-desc{font-size:1.1rem;font-weight:300;color:var(--dim2);max-width:500px;margin-bottom:48px;line-height:1.85}
+    .hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 30px;border-radius:10px;font-size:.88rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;transition:transform .2s,box-shadow .2s,opacity .2s}
+    .btn:hover{transform:translateY(-2px)}
+    .btn-solid{background:var(--blue);color:#fff;box-shadow:0 4px 28px rgba(79,156,249,.3)}
+    .btn-solid:hover{box-shadow:0 8px 40px rgba(79,156,249,.5);opacity:.95}
+    .btn-ghost{background:rgba(255,255,255,.05);color:var(--dim2);border:1px solid var(--border2)}
+    .btn-ghost:hover{color:var(--text);border-color:rgba(79,156,249,.4);background:rgba(79,156,249,.07)}
+    .hero-stats{display:flex;margin-top:80px;padding-top:40px;border-top:1px solid var(--border)}
+    .stat{padding-right:48px;margin-right:48px;border-right:1px solid var(--border)}
+    .stat:last-child{border-right:none;margin-right:0;padding-right:0}
+    .stat-n{font-family:'Syne',sans-serif;font-size:2.8rem;font-weight:800;line-height:1;letter-spacing:-2px}
+    .stat-n sup{font-size:1.1rem;color:var(--blue)}
+    .stat-l{font-size:.72rem;font-weight:500;color:var(--dim);text-transform:uppercase;letter-spacing:.12em;margin-top:8px}
+    .scroll-hint{position:absolute;bottom:40px;left:48px;display:flex;align-items:center;gap:10px;color:var(--dim);font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;z-index:2;animation:fadeUp 1s ease 1s both}
+    .scroll-line{width:40px;height:1px;background:var(--dim);position:relative;overflow:hidden}
+    .scroll-line::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:var(--blue);animation:slideLine 2s ease-in-out infinite}
+    @keyframes slideLine{0%{left:-100%}100%{left:100%}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+    .marquee-section{padding:32px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg2);overflow:hidden;position:relative}
+    .marquee-track{display:flex;gap:56px;width:max-content;animation:marquee 18s linear infinite}
+    .marquee-track:hover{animation-play-state:paused}
+    @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    .marquee-item{display:flex;align-items:center;gap:14px;white-space:nowrap;color:var(--dim2);font-size:.8rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
+    .marquee-dot{width:5px;height:5px;border-radius:50%;background:var(--blue);opacity:.5}
+    .divider{height:1px;background:var(--border);margin:0 48px}
+    .section{padding:110px 48px;max-width:1200px;margin:0 auto}
+    .eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);margin-bottom:12px;display:block}
+    h2{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,5vw,3.6rem);font-weight:800;letter-spacing:-2px;line-height:1.03;margin-bottom:16px}
+    .about-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:90px;align-items:start;margin-top:60px}
+    .photo-stack{position:relative;height:580px}
+    .photo-main{position:absolute;top:0;left:0;right:60px;bottom:60px;border-radius:24px;overflow:hidden;border:1px solid var(--border2)}
+    .photo-main img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+    .photo-main:hover img{transform:scale(1.04)}
+    .photo-main::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(5,8,18,.5) 0%,transparent 50%);pointer-events:none}
+    .photo-secondary{position:absolute;bottom:0;right:0;width:55%;height:55%;border-radius:18px;overflow:hidden;border:1px solid var(--border2);box-shadow:0 20px 60px rgba(0,0,0,.5)}
+    .photo-secondary img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+    .photo-secondary:hover img{transform:scale(1.06)}
+    .photo-badge{position:absolute;bottom:16px;left:16px;z-index:2;background:rgba(5,8,18,.85);backdrop-filter:blur(12px);color:var(--text);padding:10px 18px;border-radius:10px;font-size:.8rem;font-weight:600;border:1px solid var(--border2)}
+    .about-right p{color:var(--dim2);font-size:1rem;font-weight:300;margin-bottom:18px;line-height:1.85}
+    .about-right p strong{color:var(--text);font-weight:500}
+    .skills{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:36px}
+    .skill{display:flex;align-items:center;gap:10px;padding:11px 15px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;font-size:.83rem;font-weight:500;color:var(--dim2);transition:border-color .2s,color .2s,background .2s}
+    .skill:hover{border-color:rgba(79,156,249,.4);color:var(--text);background:rgba(79,156,249,.07)}
+    .skill-dot{width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0}
+    .projects-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:56px;flex-wrap:wrap;gap:24px}
+    .projects-head p{color:var(--dim2);font-size:.95rem;font-weight:300;max-width:320px;line-height:1.7}
+    .project-featured{position:relative;border-radius:28px;overflow:hidden;border:1px solid var(--border);margin-bottom:20px;cursor:pointer;transition:border-color .3s,box-shadow .3s}
+    .project-featured:hover{border-color:rgba(79,156,249,.4);box-shadow:0 40px 100px rgba(79,156,249,.12)}
+    .feat-img{position:relative;height:520px;overflow:hidden}
+    .feat-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s ease}
+    .project-featured:hover .feat-img img{transform:scale(1.04)}
+    .feat-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 25%,rgba(5,8,18,.55) 55%,rgba(5,8,18,.98) 100%);pointer-events:none}
+    .feat-over{position:absolute;bottom:0;left:0;right:0;padding:44px 52px}
+    .feat-over h3{font-family:'Syne',sans-serif;font-size:2.2rem;font-weight:800;letter-spacing:-1.5px;margin-bottom:12px}
+    .feat-over p{color:rgba(240,244,255,.6);font-size:.95rem;font-weight:300;max-width:560px;line-height:1.75;margin-bottom:24px}
+    .feat-meta{position:absolute;top:28px;right:28px;background:rgba(5,8,18,.7);backdrop-filter:blur(12px);border:1px solid var(--border2);border-radius:10px;padding:12px 18px;font-size:.75rem;color:var(--dim2);font-weight:500}
+    .cards-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;transition:border-color .3s,transform .3s,box-shadow .3s}
+    .card:hover{border-color:rgba(79,156,249,.35);transform:translateY(-6px);box-shadow:0 28px 70px rgba(79,156,249,.1)}
+    .card-img{position:relative;height:280px;overflow:hidden}
+    .card-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+    .card:hover .card-img img{transform:scale(1.07)}
+    .card-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 45%,rgba(5,8,18,.55) 100%);pointer-events:none}
+    .card-ph{width:100%;height:280px;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:3rem;border-bottom:1px solid var(--border)}
+    .card-body{padding:28px 30px;flex:1;display:flex;flex-direction:column}
+    .tags{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+    .tag{font-size:.67rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 11px;border-radius:100px;background:rgba(79,156,249,.1);color:var(--blue2);border:1px solid rgba(79,156,249,.18)}
+    .tag-gold{background:rgba(245,200,66,.1);color:var(--gold);border-color:rgba(245,200,66,.2)}
+    .tag-purple{background:rgba(167,139,250,.1);color:#c4b5fd;border-color:rgba(167,139,250,.2)}
+    .card-body h3{font-family:'Syne',sans-serif;font-size:1.35rem;font-weight:800;letter-spacing:-.5px;margin-bottom:10px}
+    .card-body p{color:var(--dim2);font-size:.88rem;font-weight:300;line-height:1.75;flex:1;margin-bottom:22px}
+    .card-link{display:inline-flex;align-items:center;gap:7px;color:var(--blue);font-size:.83rem;font-weight:600;text-decoration:none;transition:gap .2s}
+    .card-link:hover{gap:12px}
+    .card-muted{color:var(--dim);font-size:.83rem;font-style:italic}
+    .gallery-section{padding:80px 0;overflow:hidden;background:var(--bg2)}
+    .gallery-header{padding:0 48px;margin-bottom:48px}
+    .gallery-scroll{display:flex;gap:16px;padding:0 48px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;cursor:grab;user-select:none}
+    .gallery-scroll::-webkit-scrollbar{display:none}
+    .gallery-scroll.grabbing{cursor:grabbing}
+    .gallery-item{flex:0 0 340px;height:440px;border-radius:20px;overflow:hidden;position:relative;border:1px solid var(--border);scroll-snap-align:start;transition:transform .3s,box-shadow .3s}
+    .gallery-item:hover{transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,.5)}
+    .gallery-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
+    .gallery-item:hover img{transform:scale(1.06)}
+    .gallery-item-label{position:absolute;bottom:0;left:0;right:0;padding:20px 22px;background:linear-gradient(to top,rgba(5,8,18,.9) 0%,transparent 100%);font-size:.8rem;font-weight:600;letter-spacing:.04em}
+    .gallery-item-label span{color:var(--dim2);font-size:.72rem;font-weight:400;display:block;margin-top:2px}
+    .gallery-nav{display:flex;gap:10px;padding:24px 48px 0;justify-content:flex-end}
+    .gnav-btn{width:44px;height:44px;border-radius:50%;border:1px solid var(--border2);background:transparent;color:var(--dim2);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .2s,color .2s,background .2s}
+    .gnav-btn:hover{border-color:rgba(79,156,249,.4);color:var(--text);background:rgba(79,156,249,.08)}
+    .caps-section{padding:110px 48px;max-width:1200px;margin:0 auto}
+    .caps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:64px;border:1px solid var(--border);border-radius:20px;overflow:hidden}
+    .cap-item{padding:36px 30px;background:var(--surface);border-right:1px solid var(--border);transition:background .3s}
+    .cap-item:hover{background:var(--surface2)}
+    .cap-item:last-child{border-right:none}
+    .cap-num{font-family:'Syne',sans-serif;font-size:2.4rem;font-weight:800;color:rgba(79,156,249,.2);letter-spacing:-1px;margin-bottom:16px;line-height:1}
+    .cap-item h4{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:10px;letter-spacing:-.3px}
+    .cap-item p{color:var(--dim2);font-size:.83rem;font-weight:300;line-height:1.7}
+    .contact-box{background:var(--surface);border:1px solid var(--border2);border-radius:28px;padding:100px 72px;text-align:center;position:relative;overflow:hidden}
+    .contact-box::before{content:'';position:absolute;top:-120px;left:50%;transform:translateX(-50%);width:700px;height:500px;background:radial-gradient(ellipse,rgba(79,156,249,.09) 0%,transparent 65%);pointer-events:none}
+    .contact-bg-grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse 80% 70% at 50% 0%,black 15%,transparent 75%)}
+    .contact-box h2{margin-bottom:14px;position:relative;z-index:1}
+    .contact-box p{color:var(--dim2);font-size:1rem;font-weight:300;max-width:420px;margin:0 auto 44px;line-height:1.8;position:relative;z-index:1}
+    .contact-email{font-size:.87rem;color:var(--dim);margin-top:22px;position:relative;z-index:1}
+    .contact-email a{color:var(--blue);text-decoration:none}
+    .contact-email a:hover{text-decoration:underline}
+    footer{border-top:1px solid var(--border);padding:28px 48px;display:flex;justify-content:space-between;align-items:center}
+    footer p,footer a{font-size:.8rem;color:var(--dim);text-decoration:none}
+    footer a:hover{color:var(--blue)}
+    .reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.on{opacity:1;transform:none}
+    @media(max-width:1024px){
+      .caps-grid{grid-template-columns:repeat(2,1fr)}
+      .cap-item:nth-child(2){border-right:none}
+      .cap-item:nth-child(3){border-top:1px solid var(--border)}
+    }
+    @media(max-width:900px){
+      .about-grid{grid-template-columns:1fr;gap:48px}
+      .photo-stack{height:420px}
+      .cards-grid{grid-template-columns:1fr}
+      .feat-img{height:340px}
+      .feat-over{padding:28px}
+      .feat-over h3{font-size:1.6rem}
+    }
+    @media(max-width:768px){
+      nav{padding:0 24px}
+      .nav-links{display:none;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:rgba(5,8,18,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:20px 24px;gap:4px}
+      .nav-links.open{display:flex}
+      .hamburger{display:block}
+      .hero{padding:100px 24px 64px}
+      h1{letter-spacing:-2px}
+      .hero-stats{flex-direction:column}
+      .stat{border-right:none;margin-right:0;padding-right:0;border-bottom:1px solid var(--border);padding-bottom:20px;margin-bottom:20px}
+      .stat:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+      .section{padding:72px 24px}
+      .divider{margin:0 24px}
+      .skills{grid-template-columns:1fr}
+      .contact-box{padding:52px 28px}
+      footer{flex-direction:column;gap:10px;text-align:center;padding:24px}
+      .scroll-hint{display:none}
+      .caps-grid{grid-template-columns:1fr}
+      .cap-item{border-right:none;border-bottom:1px solid var(--border)}
+      .gallery-item{flex:0 0 280px;height:360px}
+      .gallery-header,.gallery-nav{padding-left:24px;padding-right:24px}
+      .gallery-scroll{padding:0 24px}
+      .caps-section{padding:72px 24px}
+    }
+  </style>
+</head>
+<body>
 
-        <!-- Hamburger Menu Button (Only Visible on Mobile) -->
-        <button id="menu-btn" class="hamburger-menu">&#9776;</button>
+<nav id="nav">
+  <div class="nav-logo">Danniel<span>.</span></div>
+  <div class="nav-links" id="navLinks">
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact" class="nav-cta">Hire Me</a>
+  </div>
+  <button class="hamburger" id="burger" aria-label="Open menu">&#9776;</button>
+</nav>
 
-        <!-- Navigation Links -->
-        <div id="menu" class="menu">
-          <a href="#hero" class="nav-link">Home</a>
-          <a href="#about" class="nav-link">About</a>
-          <a href="#projects" class="nav-link">Projects</a>
-          <a href="#contact" class="nav-link">Contact</a>
-        </div>
-      </nav>
-    </header>
-
-    <!-- JavaScript to Toggle Menu -->
-    <script>
-      const menuBtn = document.getElementById("menu-btn");
-      const menu = document.getElementById("menu");
-
-      menuBtn.addEventListener("click", () => {
-        menu.classList.toggle("active");
-      });
-    </script>
-
-    <!-- CSS -->
-    <style>
-      /* Header Styling */
-      .header {
-        background: #1a1a1a;
-        padding: 15px 20px;
-        position: sticky;
-        top: 0;
-        width: 100%;
-        z-index: 100;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-      }
-
-      .nav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        max-width: 1200px;
-        margin: auto;
-      }
-
-      .logo {
-        font-size: 1.5rem;
-        color: #4f9cf9;
-        font-weight: bold;
-      }
-
-      /* Default Menu (Visible on Desktop) */
-      .menu {
-        display: flex;
-        gap: 20px;
-      }
-
-      .nav-link {
-        color: white;
-        text-decoration: none;
-        font-size: 1.1rem;
-        padding: 5px 10px;
-      }
-
-      .nav-link:hover {
-        color: #ffc107;
-      }
-
-      /* Hamburger Menu (Hidden on Desktop) */
-      .hamburger-menu {
-        font-size: 2rem;
-        color: white;
-        background: none;
-        border: none;
-        cursor: pointer;
-        display: none;
-      }
-
-      /* Mobile Styles */
-      @media (max-width: 768px) {
-        .menu {
-          display: none;
-          flex-direction: column;
-          position: absolute;
-          top: 60px;
-          left: 0;
-          width: 100%;
-          background: #1a1a1a;
-          padding: 10px 0;
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-          text-align: center;
-        }
-
-        .menu.active {
-          display: flex;
-        }
-
-        .hamburger-menu {
-          display: block;
-        }
-      }
-    </style>
-
-    <section id="hero" class="hero">
-      <div class="hero-content">
-        <h1>IT Graduate & Software Developer</h1>
-        <p>Building innovative solutions for real-world problems</p>
-        <a href="#contact" class="hero-button">Get in Touch</a>
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      Open &middot; Sydney, AU
+    </div>
+    <h1>IT Graduate &amp;<br/><em>Software Developer</em></h1>
+    <p class="hero-desc">
+      I build and ship mobile apps that solve real problems, two live
+      products on the App Store, built independently from concept to launch.
+    </p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn btn-solid">View My Work ↓</a>
+      <a href="#contact" class="btn btn-ghost">Get In Touch</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-n">2<sup>+</sup></div>
+        <div class="stat-l">Apps on App Store</div>
       </div>
-    </section>
-
-    <section id="about" class="about">
-      <h2>About Me</h2>
-      <p>
-        I am a dedicated IT professional with a strong foundation in software
-        development. My hands-on experience with React Native allows me to
-        create innovative solutions. My passion for technology drives me to
-        build products that provide real-world value.
-      </p>
-    </section>
-
-    <section id="projects" class="projects">
-      <h2>MyPCaHELP</h2>
-      <div class="projects-container">
-        <div class="project">
-          <img src="ii.jpeg" alt="PCaHELP" />
-          <h3>PCaHELP (iOS/Android)</h3>
-          <p>
-            Developed a mobile app prototype providing support for individuals
-            affected by prostate cancer. Features educational content and
-            donation options for non-profits.
-          </p>
-        </div>
-        <div class="project">
-          <img src="aa.jpeg" alt="PCaHELP" />
-          <h3>PCaHELP (iOS/Android)</h3>
-          <p>
-            Developed a mobile app prototype providing support for individuals
-            affected by prostate cancer. Features educational content and
-            donation options for non-profits.
-          </p>
-        </div>
+      <div class="stat">
+        <div class="stat-n">2<sup>+</sup></div>
+        <div class="stat-l">Years Building</div>
       </div>
-    </section>
-    <!-- new photos -->
-    <section id="projects" class="projects">
-      <h2>SimplesPro</h2>
-      <div class="projects-container">
-        <div class="project">
-          <img src="a.jpeg" alt="PCaHELP" />
-          <h3>SimplesPro (iOS)</h3>
-          <p>
-            A one-time payment invoicing solution designed for ABN users. Offers
-            easy invoicing, photo attachments, and graphical invoice tracking.
-            <a
-              href="https://apps.apple.com/au/app/simplespro/id6498627150"
-              target="_blank"
-              >Check it out</a
-            >
-          </p>
-        </div>
-        <div class="project">
-          <img src="b.jpeg" alt="SimplesPro" />
-          <h3>SimplesPro (iOS)</h3>
-          <p>
-            A one-time payment invoicing solution designed for ABN users. Offers
-            easy invoicing, photo attachments, and graphical invoice tracking.
-            <a
-              href="https://apps.apple.com/au/app/simplespro/id6498627150"
-              target="_blank"
-              >Check it out</a
-            >
-          </p>
-        </div>
+      <div class="stat">
+        <div class="stat-n">AU</div>
+        <div class="stat-l">Sydney Based</div>
       </div>
-    </section>
+    </div>
+  </div>
+  <div class="scroll-hint"><div class="scroll-line"></div>Scroll to explore</div>
+</section>
 
-    <section id="projects" class="projects">
-      <h2>Simples Invoice</h2>
-      <div class="projects-container">
-        <div class="project">
-          <img src="bb.png" alt="PCaHELP" />
-          <h3>SimplesInvoice (iOS/Android)</h3>
-          <p>
-            A free invoicing solution designed for ABN users. Offers easy
-            invoicing and graphical invoice tracking.
-            <a
-              href="https://apps.apple.com/au/app/simplesproinvoices/id6741351805"
-              target="_blank"
-              >Check it out</a
-            >
-          </p>
-        </div>
-        <div class="project">
-          <img src="77.jpeg" alt="SimplesPro" />
-          <h3>SimplesInvoice (iOS/Android)</h3>
-          <p>
-            A free invoicing solution designed for ABN users. Offers easy
-            invoicing and graphical invoice tracking.
-            <a
-              href="https://apps.apple.com/au/app/simplesproinvoices/id6741351805"
-              target="_blank"
-              >Check it out</a
-            >
-          </p>
-        </div>
+<div class="marquee-section">
+  <div class="marquee-track" id="marqueeTrack">
+    <span class="marquee-item"><span class="marquee-dot"></span>React Native</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>iOS Development</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Android Development</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Python</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>App Store Launch</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Local AI / Ollama</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>UI / UX Design</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Node.js</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>JavaScript</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>React Native</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>iOS Development</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Android Development</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Python</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>App Store Launch</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Local AI / Ollama</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>UI / UX Design</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Node.js</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>JavaScript</span>
+  </div>
+</div>
+
+<section class="section" id="about">
+  <div class="about-grid">
+    <div class="photo-stack reveal">
+      <div class="photo-main">
+        <img src="gra.jpeg" alt="Danniel Junior graduating"/>
       </div>
-    </section>
+    
+      <div class="photo-badge">IT Graduate 🎓</div>
+    </div>
+    <div class="reveal">
+      <span class="eyebrow">About Me</span>
+      <h2>Developer with a product mindset</h2>
+      <p>I'm a <strong>dedicated IT professional</strong> based in Sydney with a strong foundation in software development and a passion for shipping products that create real-world value.</p>
+      <p>My hands-on experience with <strong>React Native</strong> lets me build polished mobile apps for iOS and Android. I've taken products from idea to the App Store, independently.</p>
+      <p>Currently exploring <strong>local AI with Ollama and Python</strong> on Apple Silicon, building tools that run privately and entirely on-device.</p>
+      <div class="skills">
+        <div class="skill"><span class="skill-dot"></span>React Native</div>
+        <div class="skill"><span class="skill-dot"></span>iOS &amp; Android</div>
+        <div class="skill"><span class="skill-dot"></span>Python</div>
+        <div class="skill"><span class="skill-dot"></span>JavaScript</div>
+        <div class="skill"><span class="skill-dot"></span>Local AI / Ollama</div>
+        <div class="skill"><span class="skill-dot"></span>App Store Deploy</div>
+        <div class="skill"><span class="skill-dot"></span>UI / UX Design</div>
+        <div class="skill"><span class="skill-dot"></span>Node.js</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <section id="contact" class="contact">
-      <h2>Contact Me</h2>
-      <p>Let's work together! Feel free to reach out via email or LinkedIn.</p>
-      <a href="mailto:dannieljunior@hotmail.com" class="button">Email Me</a>
-    </section>
+<div class="divider"></div>
 
-    <footer class="footer">
-      <p>&copy; 2024 Danniel Junior</p>
-    </footer>
-  </body>
+<section class="section" id="projects">
+  <div class="projects-head reveal">
+    <div>
+      <span class="eyebrow">Projects</span>
+      <h2>Simples &amp; Pro</h2>
+    </div>
+    <p>Real apps, real users — not just GitHub repos. These are live on the App Store.</p>
+  </div>
+
+  <div class="project-featured reveal" onclick="window.open('https://apps.apple.com/au/app/simplespro/id6498627150','_blank')">
+    <div class="feat-img">
+      <img src="201.JPEG" alt="SimplesPro invoicing app"/>
+      <div class="feat-meta">iOS · Swift</div>
+    </div>
+    <div class="feat-over">
+      <div class="tags">
+        <span class="tag">iOS</span>
+        <span class="tag">Swift</span>
+        <span class="tag tag-gold">★ Live on App Store</span>
+        
+      </div>
+      
+      <p>A one-time payment invoicing app built for Australian ABN holders. Easy invoicing, photo attachments and graphical invoice tracking,no subscriptions, ever. Built and shipped independently.</p>
+      
+    </div>
+  </div>
+
+   <div class="projects-head reveal">
+    <div>
+      <span class="eyebrow">Projects</span>
+      <h2>PCa &amp; Help</h2>
+    </div>
+    
+  </div>
+
+  <div class="project-featured reveal" onclick="window.open('https://apps.apple.com/au/app/simplespro/id6498627150','_blank')">
+    <div class="feat-img">
+      <img src="tes.jpeg" alt="SimplesPro invoicing app"/>
+      <div class="feat-meta">android · React Native</div>
+    </div>
+    <div class="feat-over">
+      <div class="tags">
+        <span class="tag">android</span>
+        <span class="tag">React Native</span>
+        
+      </div>
+      
+      <p>A mobile app prototype supporting individuals affected by prostate cancer. Features educational content and donation options for non-profit organisations.</p>
+      
+    </div>
+  </div>
+
+   <div class="projects-head reveal">
+    <div>
+      <span class="eyebrow">Projects</span>
+      <h2>Simples &amp; Invoice</h2>
+    </div>
+    
+  </div>
+
+  <div class="project-featured reveal" onclick="window.open('https://apps.apple.com/au/app/simplespro/id6498627150','_blank')">
+    <div class="feat-img">
+      <img src="W.jpeg" alt="SimplesPro invoicing app"/>
+      <div class="feat-meta">iOS · React Native</div>
+    </div>
+    <div class="feat-over">
+      <div class="tags">
+        <span class="tag">iOS</span>
+        <span class="tag">React Native</span>
+        
+      </div>
+    
+      <p>A one-time payment invoicing app built for Australian ABN holders. Easy invoicing, photo attachments and graphical invoice tracking, no subscriptions, ever. Built and shipped independently.</p>
+      
+    </div>
+  </div>
+
+   <div class="projects-head reveal">
+    <div>
+      <span class="eyebrow">Projects</span>
+      <h2>Tradie &amp; AI</h2>
+    </div>
+    
+  </div>
+
+   <div class="project-featured reveal" onclick="window.open('https://apps.apple.com/au/app/simplespro/id6498627150','_blank')">
+    <div class="feat-img">
+      <img src="ai1.jpeg" alt="SimplesPro invoicing app"/>
+      <div class="feat-meta">Local AI</div>
+    </div>
+    <div class="feat-over">
+      <div class="tags">
+        <span class="tag">Personal AI</span>
+        <span class="tag">Local AI</span>
+        
+      </div>
+      
+      <p>Understand your contracts before you sign. Get plain-English summaries, key obligations, and red flag alerts in seconds.</p>
+      
+    </div>
+  </div>
+
+  
+    
+  </div>
+</section>
+
+<div class="divider" style="margin:0 48px"></div>
+
+<section class="gallery-section" id="gallery">
+  <div class="gallery-header reveal">
+    <span class="eyebrow">Gallery</span>
+    <h2>Behind the builds</h2>
+  </div>
+  <div class="gallery-scroll" id="galleryScroll">
+    <div class="gallery-item">
+      <img src="201.JPEG" alt="SimplesPro UI"/>
+      <div class="gallery-item-label">SimplesPro<span>iOS App · Invoicing</span></div>
+    </div>
+     <div class="gallery-item">
+      <img src="pc.jpeg" alt="MyPCaHELP UI"/>
+      <div class="gallery-item-label">MyPCaHELP<span>Health · Prototype</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="bbb.png" alt="SimplesInvoice UI"/>
+      <div class="gallery-item-label">SimplesInvoice<span>iOS + Android · Free App</span></div>
+    </div>
+   
+    <div class="gallery-item">
+      <img src="ai.jpeg" alt="Graduation"/>
+      <div class="gallery-item-label">AI Contract reader<span>Prototype</span></div>
+    </div>
+      <div class="gallery-item">
+      <img src="pc3.jpeg" alt="MyPCaHELP UI"/>
+      <div class="gallery-item-label">MyPCaHELP<span>Health · Prototype</span></div>
+    </div>
+     <div class="gallery-item">
+      <img src="ai1.jpeg" alt="Graduation"/>
+      <div class="gallery-item-label">AI Contract reader<span>Prototype</span></div>
+    </div>
+  
+   
+  </div>
+  <div class="gallery-nav">
+    <button class="gnav-btn" id="gLeft" aria-label="Scroll left">&#8592;</button>
+    <button class="gnav-btn" id="gRight" aria-label="Scroll right">&#8594;</button>
+  </div>
+</section>
+
+<section class="caps-section">
+  <div class="reveal">
+    <span class="eyebrow">What I Do</span>
+    <h2>End-to-end delivery</h2>
+  </div>
+  <div class="caps-grid reveal">
+    <div class="cap-item">
+      <div class="cap-num">01</div>
+      <h4>Design & Prototype</h4>
+      <p>UI/UX from scratch — wireframes to polished screens that feel native on every device.</p>
+    </div>
+    <div class="cap-item">
+      <div class="cap-num">02</div>
+      <h4>Build & Ship</h4>
+      <p>React Native apps built for iOS and Android, submitted and live on the App Store independently.</p>
+    </div>
+    <div class="cap-item">
+      <div class="cap-num">03</div>
+      <h4>AI Integration</h4>
+      <p>Local AI tools powered by Ollama and Python on Apple Silicon — private, on-device, fast.</p>
+    </div>
+    <div class="cap-item">
+      <div class="cap-num">04</div>
+      <h4>Backend & APIs</h4>
+      <p>Node.js services, REST APIs and data pipelines that power the apps I build.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section" id="contact">
+  <div class="contact-box reveal">
+    <div class="contact-bg-grid"></div>
+    <span class="eyebrow" style="display:inline-block;margin-bottom:18px;position:relative;z-index:1">Let's work together</span>
+    <h2>Got a project<br/>in mind?</h2>
+    <p>Open to freelance work, collaborations and full-time opportunities in Sydney or remote.</p>
+    <a href="mailto:dannielappdevelopment@gmail.com" class="btn btn-solid" style="position:relative;z-index:1">Send Me an Email</a>
+    <div class="contact-email">or reach me at <a href="mailto:dannielappdevelopment@gmail.com">dannielappdevelopment@gmail.com</a></div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Danniel Junior. All rights reserved.</p>
+  <a href="mailto:dannielappdevelopment@gmail.com">dannielappdevelopment@gmail.com</a>
+</footer>
+
+<script>
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('on'), i * 90);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.06 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  document.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 24;
+    const y = (e.clientY / window.innerHeight - 0.5) * 24;
+    document.querySelectorAll('.orb').forEach((orb, i) => {
+      const f = i === 0 ? 1 : -0.65;
+      orb.style.transform = `translate(${x * f}px, ${y * f}px)`;
+    });
+  });
+
+  const gs = document.getElementById('galleryScroll');
+  let isDown = false, startX, scrollLeft;
+  gs.addEventListener('mousedown', e => { isDown = true; gs.classList.add('grabbing'); startX = e.pageX - gs.offsetLeft; scrollLeft = gs.scrollLeft; });
+  gs.addEventListener('mouseleave', () => { isDown = false; gs.classList.remove('grabbing'); });
+  gs.addEventListener('mouseup', () => { isDown = false; gs.classList.remove('grabbing'); });
+  gs.addEventListener('mousemove', e => { if (!isDown) return; e.preventDefault(); const x = e.pageX - gs.offsetLeft; gs.scrollLeft = scrollLeft - (x - startX) * 1.4; });
+
+  document.getElementById('gLeft').addEventListener('click', () => gs.scrollBy({ left: -360, behavior: 'smooth' }));
+  document.getElementById('gRight').addEventListener('click', () => gs.scrollBy({ left: 360, behavior: 'smooth' }));
+
+  window.addEventListener('scroll', () => {
+    document.getElementById('nav').style.background = window.scrollY > 40
+      ? 'rgba(5,8,18,0.95)' : 'rgba(5,8,18,0.75)';
+  });
+</script>
+</body>
 </html>
